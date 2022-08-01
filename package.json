@@ -1,0 +1,38 @@
+{
+  "name": "primevideoclone",
+  "version": "1.0.0",
+  "description": "Clone For Prime Video",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "app": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viveksantani1017/PrimeVideoClone.git"
+  },
+  "author": "Vivek Santani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/viveksantani1017/PrimeVideoClone/issues"
+  },
+  "homepage": "https://github.com/viveksantani1017/PrimeVideoClone#readme",
+  "dependencies": {
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@mui/material": "^5.9.2",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^7.3.0",
+    "nodemon": "^2.0.19"
+  }
+}

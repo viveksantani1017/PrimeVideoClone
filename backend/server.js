@@ -1,0 +1,16 @@
+const express = require('express')
+const dotenv = require('dotenv').config()
+const colors = require('colors')
+const connectDB = require('./config/db')
+const {errorHandler} = require('./middleware/errorMiddleware')
+const cors = require('cors')
+const port = process.env.PORT
+const app  = express()
+app.use(cors())
+connectDB()
+app.use(express.json())
+app.use('/api/media',require('./routes/mediaRoutes'))
+app.use(errorHandler)
+app.listen(port,()=>{
+    console.log("listening to port")
+})
