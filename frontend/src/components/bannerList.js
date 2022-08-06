@@ -1,0 +1,33 @@
+const bannerList = [
+    {
+        id:1,
+        src:'./resources/images/banners/TheBatman.jpeg'
+    },
+    {
+        id:2,
+        src:'./resources/images/banners/JurassicWorld.jpeg'
+    },
+    {
+        id:3,
+        src:'./resources/images/banners/JohnWick.jpeg'
+    },
+    {
+        id:4,
+        src:'./resources/images/banners/nothing-arsenal.jpeg'
+    },
+    {
+        id:5,
+        src:'./resources/images/banners/FB-DUM.jpg'
+    },{
+        id:6,
+        src:'./resources/images/banners/LineOfDuty.jpeg'
+    },
+    {
+        id:7,
+        src:'./resources/images/banners/FF9.jpeg'
+    },{
+        id:8,
+        src:'./resources/images/banners/DoomPatrol.jpeg'
+    },
+]
+export default bannerList

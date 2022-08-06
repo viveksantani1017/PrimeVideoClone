@@ -38,7 +38,7 @@ const mediaSchema = mongoose.Schema({
         required:[true,"Please Add Media type"]
     },
     genre:{
-        type:String,
+        type:Array,
         required:[true,"Please Add Media type"]
     },
     isOscarNominee:{

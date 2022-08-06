@@ -4,8 +4,16 @@ const Media = require('../models/mediaModel')
 //@desc get all media
 const getAllMedia =  asyncHandler( async(req,res)=>{
     const response =await Media.find()
+    res.status(200).json(response)
+})
+
+//@desc get all media
+const getMediaByType =  asyncHandler( async(req,res)=>{
+    const {type} = req.body
+    const response =await Media.find({'type':type})
     res.json(response)
 })
+
 
 //@desc insert media
 const setMedia =  asyncHandler( async(req,res)=>{
@@ -16,8 +24,8 @@ const setMedia =  asyncHandler( async(req,res)=>{
         releaseDate:data.releaseDate,
         rating:data.rating,
         description:data.description,
-        coverImg:data.description,
-        cast:data.description,
+        coverImg:data.coverImg,
+        cast:data.cast,
         director:data.director,
         lang:data.lang,
         genre:data.genre,
@@ -37,7 +45,7 @@ const getFilteredMedia =  asyncHandler( async(req,res)=>{
         searchQuery={'lang':lang}
     }
     else{
-        searchQuery={'lang':lang,'genre':{ $regex: genre}}
+        searchQuery={'lang':lang,'genre':[{ $regex: genre}]}
     }
 
     const response =await Media.find(searchQuery)
@@ -47,5 +55,6 @@ const getFilteredMedia =  asyncHandler( async(req,res)=>{
 module.exports = {
     getAllMedia,
     setMedia,
-    getFilteredMedia
+    getFilteredMedia,
+    getMediaByType
 }

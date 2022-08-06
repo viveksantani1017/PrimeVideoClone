@@ -9,9 +9,9 @@ const initialState = {
     message:''
 }
 
-export const getFilteredMedia = createAsyncThunk('media/getfilteredmedia', async(data,thunkApi)=>{
+export const getMediaByType = createAsyncThunk('media/getmediatype', async(data,thunkApi)=>{
     try {
-        return await mediaService.getFilteredMedia(data)
+        return await mediaService.getMediaByType(data)
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkApi.rejectWithValue(message)
@@ -25,15 +25,15 @@ export const getFilteredMedia = createAsyncThunk('media/getfilteredmedia', async
     },
     extraReducers:(builder)=>{
         builder
-        .addCase(getFilteredMedia.pending,(state)=>{
+        .addCase(getMediaByType.pending,(state)=>{
             state.isLoading = true
           })
-          .addCase(getFilteredMedia.fulfilled,(state,action)=>{
+          .addCase(getMediaByType.fulfilled,(state,action)=>{
             state.isLoading=false
             state.isSuccess=true
             state.medias = action.payload
           })
-          .addCase(getFilteredMedia.rejected,(state,action)=>{
+          .addCase(getMediaByType.rejected,(state,action)=>{
             state.isLoading = false
             state.isError=true
             state.message = action.payload

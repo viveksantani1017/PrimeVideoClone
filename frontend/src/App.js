@@ -1,16 +1,28 @@
-import {Link,BrowserRouter,Route,Routes} from 'react-router-dom'
-import MovieList from './MovieList';
+import {BrowserRouter,Route,Routes} from 'react-router-dom'
+import Header from './components/Header';
+import {ThemeProvider,createTheme} from '@mui/material'
+import Pages from './pages/Pages';
+import Footer from './components/Footer';
 function App() {
+  const theme = createTheme({
+    palette:{
+      primary:{
+        main: '#1a242e',
+    },
+    secondary:{
+      main:'#252e39',
+    }
+    },
+  })
   return (
     <>
-      <BrowserRouter>
-      <Link to={'/api/media/filter'} state={{'lang':'English','genre':''}}>English</Link>
-      <Link to={'/api/media/filter'} state={{'lang':'','genre':'Action'}}>Action</Link>
-        <Routes>
-          <Route path='/api/media/filter' element={<MovieList/>}></Route>
-        </Routes>
-      </BrowserRouter>
-
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Header/>
+          <Pages/>
+          <Footer/>
+        </BrowserRouter>
+      </ThemeProvider>
     </>
     );
 }

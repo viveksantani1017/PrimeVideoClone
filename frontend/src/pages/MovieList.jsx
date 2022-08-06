@@ -1,17 +1,19 @@
 import {useEffect} from 'react'
 import {useLocation} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
-import { getFilteredMedia, reset } from './features/media/mediaSlice'
+import { getMediaByType, reset } from '../features/media/mediaSlice'
+import { getFilteredMedia } from '../features/filter/filterSlice'
 function MovieList() {
   const dispatch = useDispatch()
   const location = useLocation()
   const {medias,isError,isLoading,message} = useSelector((state)=>state.medias)
-  const {lang,genre}  = location.state
+  const {lang,genre,type}  = location.state
   useEffect(()=>{
     if(isError){
         console.log(message)
     }
     dispatch(getFilteredMedia({'lang':lang,'genre':genre}))
+    dispatch(getMediaByType({'type':type}))
     return()=>{
         dispatch(reset())
     }
@@ -29,6 +31,10 @@ function MovieList() {
                     return(
                     <div key={media._id}>
                         <h1>{media.name}</h1>
+                        <img src={media.coverImg} alt={media.name}/><br />
+                        <span>{media.rating}/10</span><br />
+                        <span>{media.releaseDate}</span><br />
+                        <span>{media.description}</span>
                     </div>
                     )
                 })}
