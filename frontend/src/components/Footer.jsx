@@ -4,7 +4,7 @@ function Footer() {
   return (
     <div className="footer-wrapper">
         <div className="img-wrapper">
-            <img src="./resources/images/logo.png" alt="logo" style={{width:'100px'}} />
+            <img src={process.env.PUBLIC_URL+'/resources/images/logo.png'} alt="logo" style={{width:'100px'}} />
         </div>
         <div className="info-wrapper">
             <a href="" className='info-link'>Terms and Privacy Notice</a>

@@ -12,13 +12,18 @@
     -moz-osx-font-smoothing: grayscale;
     background-color:#0f171e;
     color: white;
+    max-width: 100vw;
+    overflow-y:scroll;
 }
 .out-home{
   margin: 2% 3.5%;
 }
 .banner-img{
     width: 100%;
-    opacity: 0.6;
+  }
+.smallBanner-img{
+    width: 100%;
+    opacity: 0.6;    
 }
 .movielist-wrapper{
   display: grid;
@@ -58,4 +63,43 @@
 .info-link{
   text-decoration: none;
   color: #389aec;
+}
+.media-card{
+  position: relative;
+  transition: 2s ease ; /* Animation */
+}
+.media-card:hover{
+transform: scale(1.1);
+/* border:3px solid #389aec; */
+}
+.media-card:hover > .card-content {
+display: none;
+}
+.card-content-extra{
+  display: none;
+}
+.media-card:hover >.card-content-extra{
+display: block;
+}
+.play-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.left{
+  margin-bottom: 10px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+}
+.right{
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  right: 0;
 }

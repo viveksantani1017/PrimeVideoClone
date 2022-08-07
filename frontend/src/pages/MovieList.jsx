@@ -4,6 +4,7 @@ import {useDispatch,useSelector} from 'react-redux'
 import { getMediaByType, reset } from '../features/media/mediaSlice'
 import { getFilteredMedia } from '../features/filter/filterSlice'
 function MovieList() {
+  const imglocation = process.env.PUBLIC_URL + '/resources/images/coverimages/'
   const dispatch = useDispatch()
   const location = useLocation()
   const {medias,isError,isLoading,message} = useSelector((state)=>state.medias)
@@ -12,7 +13,7 @@ function MovieList() {
     if(isError){
         console.log(message)
     }
-    dispatch(getFilteredMedia({'lang':lang,'genre':genre}))
+    dispatch(getFilteredMedia({'lang':lang,'genre':genre,'type':type}))
     dispatch(getMediaByType({'type':type}))
     return()=>{
         dispatch(reset())
@@ -31,7 +32,7 @@ function MovieList() {
                     return(
                     <div key={media._id}>
                         <h1>{media.name}</h1>
-                        <img src={media.coverImg} alt={media.name}/><br />
+                        <img src={ imglocation + media.coverImg} alt={media.name}/><br />
                         <span>{media.rating}/10</span><br />
                         <span>{media.releaseDate}</span><br />
                         <span>{media.description}</span>

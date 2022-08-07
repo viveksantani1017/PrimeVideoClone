@@ -5,6 +5,7 @@ import '@splidejs/react-splide/css';
 import {Link} from 'react-router-dom'
 import showGenre from './showGenre'
 import movieGenre from './movieGenre'
+import languageList from './languageList.js'
 function MovieSliders() {
     const imglocation = '../resources/images/coverimages/'
     const [media,setMedia] = useState([]);
@@ -23,11 +24,33 @@ function MovieSliders() {
     },[])
   return (
     <>
+    <div className='slider-wrapper'>
+                    <h3  style={{marginBottom:'10px'}}>Watch in Your Language</h3>
+                    <Splide options={{
+                        perPage:10,
+                        arrows:false,
+                        pagination:false,
+                        autoplay:false,
+                        gap:'1rem'
+                    }}>
+                           {languageList.map((language)=>{
+                        return(
+                            <SplideSlide key={language.id}>
+                                <Link to={"/category"} state={{'lang':language.lang, 'genre':'' }}>
+                                    <img src={language.src} alt={language.lang} style={{borderRadius:'3px'}} className='smallBanner-img'/>
+                                </Link>
+                                  <span className="img-name">{language.lang}</span>
+                            </SplideSlide>
+                        );
+                    })} 
+                    </Splide>
+                    </div>
+
       {/* Drama */}
       <div className="slider-wrapper">
         <h3>Drama movies</h3>
         <Link
-          to={"./api/media/filter"}
+          to={"/category"}
           state={{ lang: "", genre: "Drama" }}
           style={{ display: "", textDecoration: "none", color: "blue" }}
         >
@@ -58,7 +81,7 @@ function MovieSliders() {
       <div className="slider-wrapper">
         <h3>ACADEMY AWARD nominees and winners</h3>
         <Link
-          to={"./api/media/filter"}
+          to={"/category"}
           style={{ display: "", textDecoration: "none", color: "blue" }}
         >
           See more
@@ -88,7 +111,7 @@ function MovieSliders() {
       <div className="slider-wrapper">
         <h3>Thriller Movies</h3>
         <Link
-          to={"./api/media/filter"}
+          to={"/category"}
           state={{ lang: "", genre: "Thriller" }}
           style={{ display: "", textDecoration: "none", color: "blue" }}
         >
@@ -119,7 +142,7 @@ function MovieSliders() {
       <div className="slider-wrapper">
         <h3>Movies in English</h3>
         <Link
-          to={"./api/media/filter"}
+          to={"/category"}
           state={{ lang: "English", genre: "" }}
           style={{ display: "", textDecoration: "none", color: "blue" }}
         >
@@ -163,20 +186,20 @@ function MovieSliders() {
             return (
               <SplideSlide key={show.id}>
                 <Link
-                  to={"/api/media/filter"}
+                  to={"/category"}
                   style={{
                     position: "relative",
                     textAlign: "center",
                     color: "white",
                     textDecoration: "none",
                   }}
-                  state={{ lang: "", genre: show.genre }}
+                  state={{ lang: "", genre: show.genre,type:'Show' }}
                 >
                   <img
                     src={show.src}
                     alt={show.lang}
                     style={{ borderRadius: "3px" }}
-                    className="banner-img"
+                    className="smallBanner-img"
                   />
                   <span className="img-name">{show.genre}</span>
                 </Link>
@@ -187,7 +210,7 @@ function MovieSliders() {
       </div>
       {/* Movie Genre */}
       <div className="slider-wrapper">
-        <h3 style={{ marginBottom: "10px" }}>Tv Genres</h3>
+        <h3 style={{ marginBottom: "10px" }}>Movie Genres</h3>
         <Splide
           options={{
             perPage: 10,
@@ -202,20 +225,20 @@ function MovieSliders() {
             return (
               <SplideSlide key={movie.id}>
                 <Link
-                  to={"/api/media/filter"}
+                  to={"/category"}
                   style={{
                     position: "relative",
                     textAlign: "center",
                     color: "white",
                     textDecoration: "none",
                   }}
-                  state={{ lang: "", genre: movie.genre }}
+                  state={{ lang: "", genre: movie.genre,type:'Movie' }}
                 >
                   <img
                     src={movie.src}
                     alt={movie.lang}
                     style={{ borderRadius: "3px" }}
-                    className="banner-img"
+                    className="smallBanner-img"
                   />
                   <span className="img-name">{movie.genre}</span>
                 </Link>

@@ -17,7 +17,7 @@ function Header() {
       <AppBar  style={{height:'80px', display:'flex',justifyContent:'center',position:'relative'}}>
         <Toolbar  >
           <a href="/">
-            <img src='./resources/images/logo.png'alt = 'jbkj'style={{width:'100px',marginRight:'30px'}} />
+            <img src={process.env.PUBLIC_URL+'/resources/images/logo.png'}alt = 'jbkj'style={{width:'100px',marginRight:'30px'}} />
           </a>
           <div style={{
             display:'flex',

@@ -10,7 +10,7 @@ function Pages() {
         <>
         <Routes>
         <Route path="/" element={<Home/>}/>
-          <Route path='/api/media/filter' element={<MovieFilter/>}></Route>
+          <Route path='/category' element={<MovieFilter/>}></Route>
           <Route path='/api/media/movies' element={<MovieList/>}></Route>
           <Route path='/api/media/shows' element={<MovieList/>}></Route>
         </Routes>
