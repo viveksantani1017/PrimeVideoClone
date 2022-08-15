@@ -11,13 +11,12 @@ function Banner() {
                         pagination:true,
                         drag:"free",
                         autoplay:true,
+                        type:'loop'
                     }}>
                            {bannerList.map((banner)=>{
                         return(
                             <SplideSlide key={banner.id}>
-                                <Link to={"/recipe/" + banner.id}>
                                     <img src={banner.src} alt={banner.src} className='banner-img'/>
-                                </Link>
                             </SplideSlide>
                         );
                     })} 

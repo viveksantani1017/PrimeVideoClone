@@ -14,8 +14,8 @@ function Header() {
 }  
   return (
     <>
-      <AppBar  style={{height:'80px', display:'flex',justifyContent:'center',position:'relative'}}>
-        <Toolbar  >
+      <AppBar  className='main-nav-bar' style={{ position:'relative'}}>
+        <Toolbar  className='main-toolbar'>
           <a href="/">
             <img src={process.env.PUBLIC_URL+'/resources/images/logo.png'}alt = 'jbkj'style={{width:'100px',marginRight:'30px'}} />
           </a>
@@ -23,11 +23,11 @@ function Header() {
             display:'flex',
             justifyContent:'center',
             alignItems:'center'
-          }}>
-            <Link to={'./api/media/movies'} state={{'type':'Movie'}} style={linkStyle} className='links' >Movies</Link>
-            <Link to={'./api/media/shows'} state={{'type':'Show'}} style={linkStyle} className='links' >Tv Shows</Link>
-            <Link to={'./api/media/kids'} state={{'type':'Kids'}} style={linkStyle} className='links' >Kids</Link>
-            <Link to={'./api/media/filter'} state={{'lang':'English','genre':''}} style={linkStyle} className='links' >Categories</Link>
+          }} >
+            <Link to={'/movies'} state={{'type':'Movie','genre':'','lang':''}} style={linkStyle} className='links' >Movies</Link>
+            <Link to={'/shows'} state={{'type':'Show','genre':'','lang':''}} style={linkStyle} className='links' >Tv Shows</Link>
+            <Link to={'/kids'} state={{'type':'Kids','genre':'','lang':''}} style={linkStyle}  >Kids</Link>
+            <Link to={'/category'} state={{'lang':'English','genre':''}} style={linkStyle} className='category-header' >Categories</Link>
           </div>
         </Toolbar>
       </AppBar>

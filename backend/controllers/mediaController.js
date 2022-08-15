@@ -6,7 +6,16 @@ const getAllMedia = asyncHandler(async (req, res) => {
   const response = await Media.find();
   res.status(200).json(response);
 });
-
+//getOneMedia
+const getMedia = asyncHandler(async(req,res)=>{
+  const response = await Media.findById(req.body.id)
+  if(!response){
+    res.status(404).json({message:'No Media Found'})
+  }
+  else{
+    res.status(200).json(response)
+  } 
+})
 //@desc update media
 const updateMedia = asyncHandler(async (req, res) => {
   const { data } = req.body;
@@ -86,6 +95,7 @@ const getFilteredMedia = asyncHandler(async (req, res) => {
 
 module.exports = {
   getAllMedia,
+  getMedia,
   setMedia,
   getFilteredMedia,
   getMediaByType,

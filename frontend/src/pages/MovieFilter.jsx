@@ -38,7 +38,7 @@ function MovieFilter() {
   return (
     <div>
       <div className="out-home">
-        <h3 style={{color:'grey',marginTop:'30px',cursor:'arrow', fontWeight:'bold'}}>{genre} {lang}</h3>
+        <h3 style={{color:'grey',marginTop:'30px',cursor:'arrow', fontWeight:'bold'}}>{genre} {lang} {type}</h3>
       <Divider style={{marginTop:'20px',marginBottom:'15px' ,width:'100%',background:'grey'}}  orientation='horizontal'/>
         {filterMedia.length > 0 ? (
           <div>
