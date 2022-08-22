@@ -16,6 +16,11 @@ const getMedia = asyncHandler(async(req,res)=>{
     res.status(200).json(response)
   } 
 })
+//get media details
+const getMediadetails = asyncHandler(async(req, res) => {
+  const mediaDetails = await Media.findById(req.params.id)
+  res.json(mediaDetails)
+})
 //@desc update media
 const updateMedia = asyncHandler(async (req, res) => {
   const { data } = req.body;
@@ -95,6 +100,7 @@ const getFilteredMedia = asyncHandler(async (req, res) => {
 
 module.exports = {
   getAllMedia,
+  getMediadetails,
   getMedia,
   setMedia,
   getFilteredMedia,

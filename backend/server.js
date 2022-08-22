@@ -9,6 +9,8 @@ const app  = express()
 app.use(cors())
 connectDB()
 app.use(express.json())
+app.use('/api/user', require('./routes/userRoutes'))
+app.use('/api/admin', require('./routes/mediaRoutes'))
 app.use('/api/media',require('./routes/mediaRoutes'))
 app.use(errorHandler)
 app.listen(port,()=>{
