@@ -57,7 +57,7 @@ function AddOperation() {
         <Grid item container justifyContent={'center'}>
           <form style={{width:'400px'}}>
               <Grid item container margin={2} justifyContent={'center'}>
-                  <h1>Insert Product Details</h1>
+                  <h1 style={{color:'black'}}>Insert Product Details</h1>
                   <input type="file" name="coverImg" label="Upload" onChange={onFileUpload} />
                   <TextField id="standard-basic" name="name" label="Name" onChange={onChange} value={name} fullWidth variant="standard" />
                   <TextField id="standard-basic" name="type" label="Type" onChange={onChange} value={type} fullWidth variant="standard" />
@@ -71,18 +71,18 @@ function AddOperation() {
                     <input style={{width:'100%'}} type="range" name="rating" min={0} step={0.1} max={10}  onChange={onChange} value={rating} />
                     <Label>{rating}</Label>
                   </Grid>
-                  <Grid item container margin={2} marginTop={2}>
+                  <Grid item container marginTop={2}>
                         <Label>Genre :- </Label>
-                      <FormGroup aria-label="position" row>
-                            <FormControlLabel value="Action" name='action'  onClick={getData} control={<Checkbox />} label="Action" labelPlacement="start" />
-                            <FormControlLabel value="Adventure" name='adventure' onChange={getData} control={<Checkbox />} label="Adventure" labelPlacement="start" />
-                            <FormControlLabel value="Comedy" name='comedy' onChange={getData} control={<Checkbox />} label="Comedy" labelPlacement="start" />
-                            <FormControlLabel value="Fantasy" name='fantasy' onChange={getData} control={<Checkbox />} label="Fantasy" labelPlacement="start" />
-                            <FormControlLabel value="Horror" name='horrer' onChange={getData} control={<Checkbox />} label="Horror" labelPlacement="start"/>
-                            <FormControlLabel value="Mystery" name='mystery' onChange={getData} control={<Checkbox />} label="Mystery" labelPlacement="start" />
-                            <FormControlLabel value="Drama" name='drama' onChange={getData} control={<Checkbox />} label="Drama" labelPlacement="start" />
-                            <FormControlLabel value="Science fiction" name='science fiction' onChange={getData} control={<Checkbox />} label="Science Fiction" labelPlacement="start" />
-                            <FormControlLabel value="Other" name='other' onChange={getData} control={<Checkbox />} label="other" labelPlacement="start" />
+                      <FormGroup aria-label="position" row  >
+                            <FormControlLabel value="Action" name='action'  onClick={getData} control={<Checkbox />} label="Action" labelPlacement="start"  />
+                            <FormControlLabel value="Adventure" name='adventure' onChange={getData} control={<Checkbox />} label="Adventure" labelPlacement="start"  />
+                            <FormControlLabel value="Comedy" name='comedy' onChange={getData} control={<Checkbox />} label="Comedy" labelPlacement="start"  />
+                            <FormControlLabel value="Fantasy" name='fantasy' onChange={getData} control={<Checkbox />} label="Fantasy" labelPlacement="start"  />
+                            <FormControlLabel value="Horror" name='horrer' onChange={getData} control={<Checkbox />} label="Horror" labelPlacement="start" />
+                            <FormControlLabel value="Mystery" name='mystery' onChange={getData} control={<Checkbox />} label="Mystery" labelPlacement="start"  />
+                            <FormControlLabel value="Drama" name='drama' onChange={getData} control={<Checkbox />} label="Drama" labelPlacement="start"  />
+                            <FormControlLabel value="Science fiction" name='science fiction' onChange={getData} control={<Checkbox />} label="Science Fiction" labelPlacement="start"  />
+                            <FormControlLabel value="Other" name='other' onChange={getData} control={<Checkbox />} label="other" labelPlacement="start"  />
                       </FormGroup>
                       <FormControl>
 

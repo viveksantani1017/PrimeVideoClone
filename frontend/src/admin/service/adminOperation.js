@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:5000/api/admin/'
+const API_URL = 'http://localhost:5000/api/media/'
 
 const getAll = async() => {
     var response = await axios.get(API_URL)

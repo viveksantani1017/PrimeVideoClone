@@ -1,6 +1,5 @@
 import AddOperation from './addOperation'
 import Content from './Content'
-import Logo from '../images/primeicon.png'
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
@@ -11,9 +10,10 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import {useState} from 'react'
 import './admin.css'
+import { Button } from '@mui/material';
+import { height } from '@mui/system';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -45,6 +45,7 @@ function a11yProps(index) {
 }
 
 function Admin() {
+  const user = true
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
@@ -58,7 +59,10 @@ function Admin() {
   return (
     <div className='Admin'>
         <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '100%' }}>
-          <img style={{marginLeft:'40%'}} src={Logo} className="LG" alt="Logo" />
+            <div style={{display:'flex',flexDirection:'column',alignItems:'center',position: 'relative', height:'110px'}}>
+              <img  style={{alignSelf:'center',position:'absolute'}} src={process.env.PUBLIC_URL+"/resources/images/logo.png"} className="LG" alt="Logo" />
+            <Button variant='contained' style={{alignSelf:'flex-end',position:'absolute',marginTop:'30px',marginRight:'150px'}} > {user?'LogOut':'Login'}</Button>
+            </div>
           <AppBar position="static">
             <Tabs
               value={value}

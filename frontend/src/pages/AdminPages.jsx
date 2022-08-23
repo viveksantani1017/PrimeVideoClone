@@ -12,7 +12,6 @@ function Pages() {
         <Routes>
           <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-
                     <Route path="/" element={<Admin />} />
                     <Route
                       path="/admin/productUpdate"

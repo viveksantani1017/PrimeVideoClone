@@ -22,27 +22,25 @@ const getMediadetails = asyncHandler(async(req, res) => {
   res.json(mediaDetails)
 })
 //@desc update media
-const updateMedia = asyncHandler(async (req, res) => {
+const updateMedia = asyncHandler(async(req, res) => {
   const { data } = req.body;
+  console.log(req.body)
   const media = await Media.findById(req.params.id);
   if (!media) {
-    res.status(404).json({ message: "Media Not Found" });
-  }
-  if (!data) {
-    res.json({ message: "Set Data" });
+      res.status(404).json({ message: "Media Not Found" });
   } else {
-    const response = await Media.findByIdAndUpdate(req.params.id,req.body.data,{new:true});
-    res.status(200).json(response)
+      const response = await Media.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      res.status(200).json({ data: response, messege: "Data Updated" })
   }
 });
 //@desc delete media
-const delelteMedia = asyncHandler(async(req,res)=>{
-    const media = await Media.findById(req.params.id);
+const delelteMedia = asyncHandler(async(req, res) => {
+  const media = await Media.findById(req.params.id);
   if (!media) {
-    res.status(404).json({ message: "Media Not Found" });
+      res.status(404).json({ message: "Media Not Found" });
   }
   await media.remove(req.params.id)
-  res.status(200).json({message:'Media Deleted'})
+  res.status(200).json({ message: 'Media Deleted' })
 })
 //@desc get all media
 const getMediaByType = asyncHandler(async (req, res) => {
@@ -53,22 +51,27 @@ const getMediaByType = asyncHandler(async (req, res) => {
 
 //@desc insert media
 const setMedia = asyncHandler(async (req, res) => {
-  const { data } = req.body;
-  const response = await Media.create({
-    name: data.name,
-    type: data.type,
-    releaseDate: data.releaseDate,
-    rating: data.rating,
-    description: data.description,
-    coverImg: data.coverImg,
-    cast: data.cast,
-    director: data.director,
-    lang: data.lang,
-    genre: data.genre,
-    isOscarNominee: data.isOscarNominee,
-    isOscarWinner: data.isOscarWinner,
-  });
-  res.json(response);
+  try {
+    const { media } = req.body
+    const data = JSON.parse(media)
+    const response = await Media.create({
+        name: data.name,
+        type: data.type,
+        releaseDate: data.releaseDate,
+        rating: data.rating,
+        description: data.description,
+        coverImg: data.coverImg,
+        cast: data.cast,
+        director: data.director,
+        lang: data.lang,
+        genre: data.genre,
+        isOscarNominee: data.isOscarNominee,
+        isOscarWinner: data.isOscarWinner,
+    });
+    res.json({ messege: 'Data Inserted' });
+} catch (err) {
+    console.log(err)
+}
 });
 //@desc get filtered media by type
 const getFilteredMedia = asyncHandler(async (req, res) => {

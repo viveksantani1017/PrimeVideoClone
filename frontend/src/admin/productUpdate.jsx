@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation,useNavigate } from 'react-router-dom'
 import operations from './service/adminOperation'
 import * as React from 'react';
 import { TextField } from '@mui/material';
@@ -15,6 +15,7 @@ function ProductUpdate() {
     name:'',type:'',releaseDate:'',rating:'',description:'',cast:'',director:'',lang:[],genre:[],isOscarNominee:'',isOscarWinner:''
   })
   const location = useLocation.apply()
+  const navigate = useNavigate()
   const pid=location.state.pid
   const onChange=(e)=>{
       setFormData((prevState)=>({
@@ -34,6 +35,7 @@ function ProductUpdate() {
       const onUpdate=(e)=>{
         operations.updateMediaDetails(pid,form).then((response)=>{
           ColorAlerts(response.messege,'success')
+          navigate('/')
         })
         
       } 
