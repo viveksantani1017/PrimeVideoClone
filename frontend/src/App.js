@@ -3,19 +3,16 @@ import Header from "./components/Header";
 import { ThemeProvider, createTheme } from "@mui/material";
 import Pages from "./pages/Pages";
 import Footer from "./components/Footer";
-import AdminPages from "./pages/AdminPages"
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import Admin from "./admin/admin";
+import AdminPages from './pages/AdminPages'
+import Login from "./components/login";
 function App() {
   const navigate = useNavigate()
   const { user,isLoading } = useSelector(
     (state) => state.auth
   );
   useEffect(() => {
-    if(!user){
-      navigate('/login')
-    }
     
   }, [user, navigate]);
   const theme = createTheme({
@@ -32,15 +29,35 @@ function App() {
   {
     return(
       <h1>Loading</h1>
-    );
-  }
-  return (
+      );
+    }
+    return (
+      <>
+    {!user ? (
     <>
+    {/* <Header/> */}
+      <ThemeProvider theme={theme}>
+              <Header />
+    <Login/>
+    <Footer/>
+      </ThemeProvider>
+    </>
+    ):
+      user['isAdmin'] ?(<>
+      <ThemeProvider theme={theme}>
+              <Header />
+        <AdminPages/>
+              <Footer />
+      </ThemeProvider>
+      </>):(<>
       <ThemeProvider theme={theme}>
               <Header />
               <Pages />
               <Footer />
       </ThemeProvider>
+      </>)
+      }
+      
     </>
   );
 }

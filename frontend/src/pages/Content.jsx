@@ -13,14 +13,21 @@ import { ToastContainer } from 'react-toastify'
 import ColorAlerts from '../components/alert'
 import 'react-toastify/dist/ReactToastify.css'
 import { useState ,useEffect} from 'react';
-import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Content() {
 const [medias,setmedias]=useState([])
 const imglocation=process.env.PUBLIC_URL+"/resources/images/coverimages/"
+const { user,isLoading } = useSelector(
+  (state) => state.auth
+);
+const navigate = useNavigate()
 useEffect(()=>{
+  if(!user['isAdmin'])
+  {
+    navigate('/');
+  }
     let mounted=true
     operations.getAll().then((respone)=>{
         if(mounted){
@@ -28,7 +35,7 @@ useEffect(()=>{
         }
     })
     return()=> mounted=false
-},[]);
+},[user, navigate]);
 const onDelete=(id)=>{
     operations.delelteMedia(id).then((response)=>{
         ColorAlerts(response.messege,'success');
@@ -80,7 +87,7 @@ return (
                           </Typography>
                           <ToastContainer/>
                                 <CardActions style={{backgroundColor:'#1b2530'}}>
-                                    <Link to='/admin/productUpdate' state={{pid:media._id}} style={{textDecorationLine:'none',backgroundColor:'none',color:'white'}}>UPDATE</Link>
+                                    <Link to='/productUpdate' state={{pid:media._id}} style={{textDecorationLine:'none',backgroundColor:'none',color:'white'}}>UPDATE</Link>
                                     <Button size="large" style={{color:'white'}} onClick={()=>{onDelete(media._id)}}>DELETE</Button>
                                 </CardActions>
                         </CardContent>

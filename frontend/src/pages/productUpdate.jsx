@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useLocation,useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import operations from './service/adminOperation'
 import * as React from 'react';
 import { TextField } from '@mui/material';
@@ -11,6 +12,7 @@ import ColorAlerts from '../components/alert'
 import 'react-toastify/dist/ReactToastify.css'
 import './admin.css'
 function ProductUpdate() {
+  
   const [form,setFormData]=useState({
     name:'',type:'',releaseDate:'',rating:'',description:'',cast:'',director:'',lang:[],genre:[],isOscarNominee:'',isOscarWinner:''
   })
@@ -23,14 +25,21 @@ function ProductUpdate() {
           [e.target.name]:e.target.value,
         }))
   }
+  const { user,isLoading } = useSelector(
+    (state) => state.auth
+  );
       useEffect(()=>{
+        if(!user['isAdmin'])
+        {
+          navigate('/');
+        }
         let mounted=true
         if(mounted){
           operations.getMediadetails(pid).then((response)=>{
             setFormData(response)
         })}
         return()=>mounted =false;
-      },[pid])
+      },[pid,user, navigate])
       
       const onUpdate=(e)=>{
         operations.updateMediaDetails(pid,form).then((response)=>{

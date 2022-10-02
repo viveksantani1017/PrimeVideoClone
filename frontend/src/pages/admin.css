@@ -11,11 +11,12 @@
 }
 
 .Content {
+
     height: 100%;
     width: 100%;
+    margin: 2% 3.5%;
 }
 .Box {
-    margin-left: 25%;
     height: auto;
     max-width: 700px;
     color: black;

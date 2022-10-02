@@ -1,15 +1,14 @@
 import React, {  useState} from "react";
-import { AppBar, Button,InputBase, Menu, MenuItem, Toolbar } from "@mui/material";
+import { AppBar, Box, Button,InputBase, Menu, MenuItem, Tab, Tabs, Toolbar, Typography } from "@mui/material";
 import { Link,useNavigate,useLocation } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/system";
 import {reset,logout} from '../features/auth/authSlice';
 import {useDispatch,useSelector} from 'react-redux'
-
+import AddOperation from "../pages/addOperation";
 function Header() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const location = useLocation();
   const searchQuery = (e)=>{
     if(e.key === 'Enter')
     {
@@ -18,6 +17,14 @@ function Header() {
     }
   }
   const {user,isLoading} = useSelector((state)=>state.auth) 
+  let admin = false;
+  if(user)
+  {
+    if(user['isAdmin'])
+    {
+      admin = true
+    }
+  }
   const [query, setQuery] = useState('')
   console.log(query)
   const handleSubmit = event => {
@@ -44,8 +51,9 @@ function Header() {
     setIconStyle("searchbox2");
   };
   const onLogout = ()=>{
-    dispatch(logout())
-    dispatch(reset())
+        dispatch(logout())
+        dispatch(reset())
+        navigate('/login') 
 }
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -95,6 +103,14 @@ function Header() {
       },
     },
   }));
+  const [value, setValue] = useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleChangeIndex = (index) => {
+    setValue(index);
+  };
   if(isLoading){
     return(
       <h1>Loading</h1>
@@ -111,7 +127,21 @@ function Header() {
               style={{ width: "100px", marginRight: "30px" }}
             />
           </a>
-          <div
+          {admin?(<div className="admin">
+            <Link
+              to={"/"}
+              className="admin-links"
+            >
+              Home
+            </Link>
+            <Link
+              to={"/insert"}
+              className="admin-links"
+            >
+              InsertMovie
+            </Link>
+          </div>) : (<>
+            <div
             style={{
               display: "flex",
               justifyContent: "center",
@@ -158,6 +188,7 @@ function Header() {
               Categories
             </Link>
           </div>
+
           <div className="search-div">
             <form onSubmit={handleSubmit}>
           <Search>
@@ -174,6 +205,9 @@ function Header() {
           </Search>
          </form>
           </div>
+
+          </>)}
+                     
           {user?(<>
           <div className='menu-div'>
               <img src={process.env.PUBLIC_URL+'/resources/images/svg/user.png'} style={{position:'absolute',right:'100%',width:'2rem',height:'2rem',top:'10%'}}/>
@@ -185,7 +219,7 @@ function Header() {
         onClick={handleClick}
         style={{color:'white',textTransform:'none',fontSize:'1.2rem'}}
       >
-        User
+        {user.name}
       </Button>
       <Menu
         id="basic-menu"

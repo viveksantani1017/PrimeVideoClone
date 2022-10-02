@@ -18,7 +18,6 @@ function Search() {
   const { name } = location.state;
   const imglocation = process.env.PUBLIC_URL + "/resources/images/coverimages/";
   const [medias, setMedia] = React.useState([]);
-  const [refresh, setRefresh] = React.useState(false);
 
   // const [drama,setDrama] = useState([]);
   const getMovie = async () => {

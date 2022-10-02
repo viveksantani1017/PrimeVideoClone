@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
 import Label from '@mui/material/FormLabel'
@@ -16,6 +16,8 @@ import { useState } from 'react';
 import './admin.css'
 import ColorAlerts from '../components/alert';
 import { ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function AddOperation() {
   const [media,setMedia]=useState({
@@ -29,6 +31,18 @@ function AddOperation() {
         [e.target.name]:e.target.value,
       }))
     }
+
+    const { user,isLoading } = useSelector(
+      (state) => state.auth
+    );
+    const navigate = useNavigate()
+  
+    useEffect(() => {
+      if(!user['isAdmin'])
+      {
+        navigate('/');
+      }
+    }, [user, navigate]);
 
   const onFileUpload=(e)=>{
     setMedia((prevState)=>({
