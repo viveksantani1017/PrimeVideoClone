@@ -1,6 +1,6 @@
 const express = require('express')
 const multer = require('multer')
-const { getAllMedia, setMedia, getFilteredMedia, getMediaByType, updateMedia, delelteMedia, getMedia, getMediadetails } = require('../controllers/mediaController')
+const { getAllMedia, setMedia, getFilteredMedia, getMediaByType, updateMedia, delelteMedia, getMedia, getMediadetails, getSearchedMedia } = require('../controllers/mediaController')
 const router = express.Router()
 
 var storage = multer.diskStorage({
@@ -16,6 +16,7 @@ var upload = multer({ storage: storage })
 
 router.get('/',getAllMedia)
 router.post('/detail',getMedia)
+router.post('/search',getSearchedMedia)
 router.get('/getdetails/:id', getMediadetails)
 router.post('/', upload.single('coverImg'), setMedia)
 router.post('/Movie',getMediaByType)

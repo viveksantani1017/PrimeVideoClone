@@ -14,6 +14,8 @@ import FormLabel from '@mui/material/FormLabel';
 import operations from './service/adminOperation';
 import { useState } from 'react';
 import './admin.css'
+import ColorAlerts from '../components/alert';
+import { ToastContainer } from 'react-toastify';
 
 function AddOperation() {
   const [media,setMedia]=useState({
@@ -50,7 +52,9 @@ function AddOperation() {
     const formData=new FormData()
     formData.append('coverImg',image)
     formData.append('media',JSON.stringify(media))
-    operations.addMediaData(formData)
+    operations.addMediaData(formData).then((response)=>{
+      ColorAlerts(response.messege,'success')
+    })
   }
   return (
     <div className='Box'>
@@ -79,7 +83,7 @@ function AddOperation() {
                             <FormControlLabel value="Comedy" name='comedy' onChange={getData} control={<Checkbox />} label="Comedy" labelPlacement="start"  />
                             <FormControlLabel value="Fantasy" name='fantasy' onChange={getData} control={<Checkbox />} label="Fantasy" labelPlacement="start"  />
                             <FormControlLabel value="Horror" name='horrer' onChange={getData} control={<Checkbox />} label="Horror" labelPlacement="start" />
-                            <FormControlLabel value="Mystery" name='mystery' onChange={getData} control={<Checkbox />} label="Mystery" labelPlacement="start"  />
+                            <FormControlLabel value="Suspense" name='suspense' onChange={getData} control={<Checkbox />} label="Suspense" labelPlacement="start"  />
                             <FormControlLabel value="Drama" name='drama' onChange={getData} control={<Checkbox />} label="Drama" labelPlacement="start"  />
                             <FormControlLabel value="Science fiction" name='science fiction' onChange={getData} control={<Checkbox />} label="Science Fiction" labelPlacement="start"  />
                             <FormControlLabel value="Other" name='other' onChange={getData} control={<Checkbox />} label="other" labelPlacement="start"  />
@@ -120,6 +124,7 @@ function AddOperation() {
                   <Button onClick={onAddData} variant="contained">Add Data</Button>
               </Grid>
           </form>
+          <ToastContainer/>
         </Grid>
     </div>
   )

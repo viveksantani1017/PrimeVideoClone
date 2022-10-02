@@ -17,6 +17,15 @@ export const getMediaByType = createAsyncThunk('media/getmediatype', async(data,
         return thunkApi.rejectWithValue(message)
     }
 })
+// export const getSearchedMedia = createAsyncThunk('media/getsearchedmedia', async(data,thunkApi)=>{
+//     try {
+//         console.log(data);
+//         return await mediaService.getSearchedMedia(data)
+//     } catch (error) {
+//         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+//         return thunkApi.rejectWithValue(message)
+//     }
+// })
  export const mediaSlice = createSlice({
     name:'media',
     initialState,
@@ -38,6 +47,19 @@ export const getMediaByType = createAsyncThunk('media/getmediatype', async(data,
             state.isError=true
             state.message = action.payload
           })
+        // .addCase(getSearchedMedia.pending,(state)=>{
+        //     state.isLoading = true
+        //   })
+        //   .addCase(getSearchedMedia.fulfilled,(state,action)=>{
+        //     state.isLoading=false
+        //     state.isSuccess=true
+        //     state.medias = action.payload
+        //   })
+        //   .addCase(getSearchedMedia.rejected,(state,action)=>{
+        //     state.isLoading = false
+        //     state.isError=true
+        //     state.message = action.payload
+        //   })
 
     }
  })

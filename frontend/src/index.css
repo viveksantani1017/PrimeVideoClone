@@ -3,12 +3,15 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+@font-face {
+  font-family: 'primefont';
+  src: local('primefont'), url(./fonts/primefont.woff) format('woff');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: primefont;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #0f171e;
@@ -210,7 +213,8 @@ body {
 .menu-div {
   position: absolute;
   right: 4%;
-}
+ }
+/*
 .images {
   background-image: url('./images/primeimage.jpg');
   height: 26rem;
@@ -226,14 +230,7 @@ body {
   }
 }
 
-@media only screen and (max-width: 900px) {
-  .images {
-      background-image: url('./images/primeimage.jpg'), ;
-      background-repeat: no-repeat;
-      height: 20rem;
-      width: 25rem;
-  }
-}
+
 
 @media only screen and (max-width: 1250px) {
   .images {
@@ -242,22 +239,33 @@ body {
       height: 25rem;
       width: 30rem;
   }
-}
+} */
 
-.realForm {
-  border-bottom-right-radius: 20%;
-  border-Top-right-radius: 10%;
-  box-shadow: rgba(250, 250, 250, 0.945) 0px 1px 2px, rgb(249, 249, 249) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-  background-color: azure;
+.realForm{
+  position: relative;
+  width: 350px;
+  height: 450px;
+  background-color: rgba(255, 255, 255, .9);
+  border: 1px solid white;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  margin:70px;
+}
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .realForm {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
 }
 
 .loginForm,
 .registerForm {
-  background-image: url('./images/img2.png');
+  height: 89vh;
+  background-image: url('../public/resources/images/jpeg/loginbg.jpg');
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
+  background-position: top;
   padding: 4px;
-  height: auto;
-  width: 100%;
 }

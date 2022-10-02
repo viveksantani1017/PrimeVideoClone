@@ -7,6 +7,7 @@ import Login from "../components/login"
 import Register from "../components/register"
 import Admin from "../admin/admin"
 import ProductUpdate from "../admin/productUpdate";
+import Search from './Search'
 
 function Pages() {
   return (
@@ -15,6 +16,7 @@ function Pages() {
         <Route path="/" element={<Home/>}/>
           <Route path='/category' element={<MovieFilter/>}></Route>
           <Route path='/movies' element={<MovieFilter/>}></Route>
+          <Route path='/search' element={<Search/>}></Route>
           <Route path='/shows' element={<MovieFilter/>}></Route>
           <Route path='/detail' element={<Detail/>}></Route>
           <Route path="/login" element={<Login />} />

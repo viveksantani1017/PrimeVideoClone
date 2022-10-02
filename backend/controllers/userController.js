@@ -14,20 +14,20 @@ const login = asyncHandler(async(req, res) => {
         res.send(res.json({ success: false, messege: 'Please fill your Credentails' }))
     }
     const userdata = await User.findOne({ username })
+    // console.log(await bcry.compare(password, userdata.password))
     if (userdata && (await bcry.compare(password, userdata.password))) {
         res.status(200).json({
             Success: true,
             token: generateToken(userdata._id),
-            isAdmin:userdata.isAdmin
-
+            isAdmin: userdata.isAdmin,
+            name:username
         })
+
     } else {
         res.status(400)
         res.json({ success: false, messege: 'Incorrect Username or Password' })
     }
-
 })
-
 //@desc Register user
 //@Route /api/user/
 //access Private
@@ -36,12 +36,10 @@ const register = asyncHandler(async(req, res) => {
     const { username, password } = req.body
     console.log(username, password)
     if (!username || !password) {
-        res.status(400)
         res.send(res.json({ success: false, messege: 'Please Complete your Credentials ' }))
     }
     const data = await User.findOne({ username })
     if (data) {
-        res.status(400)
         res.send(res.json({ success: false, messege: 'Invalid Username try another' }))
     } else {
         const salt = await bcry.genSalt(10)
@@ -53,7 +51,7 @@ const register = asyncHandler(async(req, res) => {
         if (userdata) {
             res.status(201)
             res.send(res.json({
-                Success: true
+                success: true
             }))
         } else {
             res.status(400)

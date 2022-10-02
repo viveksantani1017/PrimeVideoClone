@@ -1,41 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { AppBar, Button, FilledInput, FormControl, IconButton, InputBase, InputLabel, Menu, MenuItem, Toolbar } from "@mui/material";
-import { Link } from "react-router-dom";
+import React, {  useState} from "react";
+import { AppBar, Button,InputBase, Menu, MenuItem, Toolbar } from "@mui/material";
+import { Link,useNavigate,useLocation } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-import { alpha, Box, styled } from "@mui/system";
-import Search from "@mui/icons-material/Search";
+import { styled } from "@mui/system";
+import {reset,logout} from '../features/auth/authSlice';
+import {useDispatch,useSelector} from 'react-redux'
 
 function Header() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation();
+  const searchQuery = (e)=>{
+    if(e.key === 'Enter')
+    {
+      navigate('/search',{state:{name:e.target.value}});
+      window.location.reload();
+    }
+  }
+  const {user,isLoading} = useSelector((state)=>state.auth) 
   const [query, setQuery] = useState('')
   console.log(query)
   const handleSubmit = event => {
     event.preventDefault();
-
-    console.log('form submitted ✅');
   };
-
-  useEffect(() => {
-    const keyDownHandler = event => {
-      console.log('User pressed: ', event.key);
-
-      if (event.key === 'Enter') {
-        event.preventDefault();
-
-        // 👇️ call submit function here
-        handleSubmit();
-      }
-    };
-
-    document.addEventListener('keydown', keyDownHandler);
-    return () => {
-      document.removeEventListener('keydown', keyDownHandler);
-    };
-  }, []);
+  
   const linkStyle = {
     color: "white",
     textDecoration: "none",
-    fontWeight: "bolder",
-    fontSize: "1.2rem",
+    fontSize:'1.1rem',
     marginBottom: "10px",
     marginLeft: "20px",
   };
@@ -51,7 +43,10 @@ function Header() {
     console.log("you just clicked");
     setIconStyle("searchbox2");
   };
-
+  const onLogout = ()=>{
+    dispatch(logout())
+    dispatch(reset())
+}
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -100,6 +95,11 @@ function Header() {
       },
     },
   }));
+  if(isLoading){
+    return(
+      <h1>Loading</h1>
+    );
+  }
   return (
     <>
       <AppBar className="main-nav-bar" style={{ position: "relative" }}>
@@ -118,6 +118,14 @@ function Header() {
               alignItems: "center",
             }}
           >
+            <Link
+              to={"/"}
+              state={{ type: "Movie", genre: "", lang: "" }}
+              style={linkStyle}
+              className="links"
+            >
+              Home
+            </Link>
             <Link
               to={"/movies"}
               state={{ type: "Movie", genre: "", lang: "" }}
@@ -159,15 +167,16 @@ function Header() {
             <StyledInputBase
               placeholder="Search"
               inputProps={{ 'aria-label': 'search' }}
-              value={query}
-              onChange={event => setQuery(event.target.value)}
               autoComplete="off"
+              onKeyDown={searchQuery}
+
             />
           </Search>
          </form>
           </div>
+          {user?(<>
           <div className='menu-div'>
-            <img src={process.env.PUBLIC_URL+'/resources/images/svg/user.png'} style={{position:'absolute',right:'100%',width:'2rem',height:'2rem',top:'10%'}}/>
+              <img src={process.env.PUBLIC_URL+'/resources/images/svg/user.png'} style={{position:'absolute',right:'100%',width:'2rem',height:'2rem',top:'10%'}}/>
       <Button
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
@@ -188,9 +197,10 @@ function Header() {
         }}
       >
         <MenuItem  onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={ ()=>{ onLogout();handleClose();}} >Logout</MenuItem>
       </Menu>
     </div>
+          </>):(<></>)}
         </Toolbar>
       </AppBar>
     </>

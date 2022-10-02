@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const { db } = require("../models/mediaModel");
 const Media = require("../models/mediaModel");
 
 //@desc get all media
@@ -85,7 +86,6 @@ const getFilteredMedia = asyncHandler(async (req, res) => {
   } else {
     searchQuery = { lang: lang, genre: [{ $regex: genre }] };
   }
-
   const response = await Media.find(searchQuery);
   let filteredResponse;
   if (type == "Movie") {
@@ -101,6 +101,16 @@ const getFilteredMedia = asyncHandler(async (req, res) => {
   res.status(200).json(filteredResponse);
 });
 
+//@desc search api
+const getSearchedMedia = asyncHandler(async(req,res)=>{
+  const {searchMedia} = req.body;
+  
+  // Media.createCollection({cast:"text",genre:"text",lang:"text",type:"text",director:"text",name:"text"})
+  // const response = db.collection.find({$text:{$search:searchMedia}})
+  
+  const response = await Media.find({$or:[{lang: { "$regex": `${searchMedia}`, "$options": "ix" }},{genre: { "$regex": `${searchMedia}`, "$options": "ix" }},{cast: { "$regex": `${searchMedia}`, "$options": "ix" }},{director: { "$regex": `${searchMedia}`, "$options": "ix" }},{name: { "$regex": `${searchMedia}`, "$options": "ix" }}]})
+  res.send(response);
+})
 module.exports = {
   getAllMedia,
   getMediadetails,
@@ -109,5 +119,6 @@ module.exports = {
   getFilteredMedia,
   getMediaByType,
   updateMedia,
-  delelteMedia
+  delelteMedia,
+  getSearchedMedia
 };

@@ -2,14 +2,11 @@ import {useState} from 'react'
 import {TextField} from '@mui/material'
 import {Button} from '@mui/material'
 import {Grid} from '@mui/material'
-import {useSelector,useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
-import {register,reset} from '../features/auth/authSlice'
-import { useEffect } from 'react'
+import authService from '../features/auth/authService'
 import ColorAlerts from './alert'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Spinner from './Spinner'
 
 function Register() {
     const [formData,setFormData]=useState({
@@ -20,18 +17,7 @@ function Register() {
     const {username,password,confirmpassword}=formData
 
     const navigate=useNavigate()
-    const dispatch=useDispatch()
      
-    const {user,isLoading,isError,success,messege}=useSelector((state)=>state.auth)
-    useEffect(()=>{
-        if(isError){
-            ColorAlerts(messege)
-        }
-        // if(success || user)
-        //     // navigate('')
-        dispatch(reset())
-    },[user,isError,success,messege,navigate,dispatch])
-
     const onChange=(e)=>{
         setFormData((prevState)=>({
             ...prevState,
@@ -54,11 +40,14 @@ function Register() {
                 username,
                 password
             }
-            dispatch(register(userData))
+            let response=authService.register(userData)
+            response.then((jsonresponse)=>{
+                if(jsonresponse.data.success===false){
+                    ColorAlerts(jsonresponse.data.messege)
+                }
+                navigate('/Login')
+            })
         }
-    }
-    if(isLoading){
-        return <Spinner />
     }
   return (
     <div className='registerForm'>

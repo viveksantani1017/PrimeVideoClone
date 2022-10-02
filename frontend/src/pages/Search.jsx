@@ -1,7 +1,5 @@
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getFilteredMedia, reset } from "../features/filter/filterSlice";
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
@@ -14,42 +12,39 @@ import {
   Typography,
   Tooltip,
 } from "@mui/material";
-function MovieFilter() {
-  const imglocation = process.env.PUBLIC_URL + "/resources/images/coverimages/";
+import axios from "axios";
+function Search() {
   const location = useLocation();
-  const {searchValue} = location.state
-  console.log(searchValue)
-  const dispatch = useDispatch();
-  const { filterMedia, isError, isLoading, message } = useSelector(
-    (state) => state.filterMedia
-  );
-  const { lang, genre, type } = location.state;
-  // console.log(name);
+  const { name } = location.state;
+  const imglocation = process.env.PUBLIC_URL + "/resources/images/coverimages/";
+  const [medias, setMedia] = React.useState([]);
+  const [refresh, setRefresh] = React.useState(false);
+
+  // const [drama,setDrama] = useState([]);
+  const getMovie = async () => {
+    const response = await axios.post(
+      "http://localhost:5000/api/media/search",
+      { 'searchMedia': name }
+    );
+    setMedia(response.data);
+    console.log(response.data);
+  };
   React.useEffect(() => {
-    if (isError) {
-      console.log(message);
-    }
-    dispatch(getFilteredMedia({ lang: lang, genre: genre, type: type }));
-    return () => {
-      dispatch(reset());
-    };
-  }, [isError, dispatch, message]);
-  if (isLoading) {
-    return <h1>Loading</h1>;
-  }
+    getMovie();
+  }, []);
   return (
     <div>
       <div className="out-home">
-        <h3 style={{color:'grey',marginTop:'30px',cursor:'arrow', fontWeight:'bold'}}>{genre} {lang} {type}</h3>
+        <h3 style={{color:'grey',marginTop:'30px',cursor:'arrow', fontWeight:'bold'}}>{name}</h3>
       <Divider style={{marginTop:'20px',marginBottom:'15px' ,width:'100%',background:'grey'}}  orientation='horizontal'/>
-        {filterMedia.length > 0 ? (
+        {medias.length > 0 ? (
           <div>
             <Grid
               container
               spacing={{ xs: 2, md: 2 }}
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
-              {filterMedia.map((media) => {
+              {medias.map((media) => {
                 return (
                   <Grid item xs={2} sm={4} md={2.4} key={media._id} >
                     <Card sx={{ maxWidth: 345 }} style={{borderRadius:'0',transition:'.2s ease'}} className='media-card'>
@@ -122,4 +117,4 @@ function MovieFilter() {
   );
 }
 
-export default MovieFilter;
+export default Search;

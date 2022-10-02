@@ -9,9 +9,10 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import {useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import './admin.css'
 import { Button } from '@mui/material';
-import { height } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -45,10 +46,11 @@ function a11yProps(index) {
 }
 
 function Admin() {
-  const user = true
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {user} = useSelector((state)=>state.auth)
   const theme = useTheme();
   const [value, setValue] = useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -61,7 +63,11 @@ function Admin() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '100%' }}>
             <div style={{display:'flex',flexDirection:'column',alignItems:'center',position: 'relative', height:'110px'}}>
               <img  style={{alignSelf:'center',position:'absolute'}} src={process.env.PUBLIC_URL+"/resources/images/logo.png"} className="LG" alt="Logo" />
-            <Button variant='contained' style={{alignSelf:'flex-end',position:'absolute',marginTop:'30px',marginRight:'150px'}} > {user?'LogOut':'Login'}</Button>
+            {user ?(<>
+            <Button variant='contained' style={{alignSelf:'flex-end',position:'absolute',marginTop:'30px',marginRight:'150px'}} onClick={localStorage.removeItem('user')} >Logout</Button>
+            </>):(<>
+            <Button variant='contained' style={{alignSelf:'flex-end',position:'absolute',marginTop:'30px',marginRight:'150px'}} >Login</Button>
+            </>)}
             </div>
           <AppBar position="static">
             <Tabs
